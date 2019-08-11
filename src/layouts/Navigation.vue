@@ -2,9 +2,11 @@
     <div class="container">
         <b-navbar>
             <template slot="brand">
+                <router-link :to="{ path: '/'}">
                 <b-navbar-item>
                     <p class="title is-3">Instagram Clone</p>
                 </b-navbar-item>
+                </router-link>
             </template>
             <template slot="start">
                 
@@ -47,8 +49,9 @@ export default {
             if(this.search_keyword == ''){
                 this.$router.push({ path: '/' })
             }else{
-                this.$router.push({ path: 'search', query: { keyword: this.search_keyword } })
+                this.$router.push({ path: '/search', query: { keyword: this.search_keyword } })
             }
+            this.search_keyword = ''
         }
     }
 }

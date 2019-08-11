@@ -1,5 +1,6 @@
 <template>
     <div class="home-page">
+        <b-loading :active.sync="isLoading.hashtag" :is-full-page="isLoading.prop.isFullPage"></b-loading>
         <div class="search-keyword">
             <p class="search-keyword__title">#{{search_keyword}}</p>
         </div>
@@ -12,7 +13,6 @@
                 :animated="tabProperty.animated"
                 class="block">
                 <b-tab-item class="main-container" label="Hashtags">
-                    <b-loading :active.sync="isLoading.hashtag" :is-full-page="isLoading.prop.isFullPage"></b-loading>
                     <div class="columns" v-if="data.hashtag.status == 'error'">
                         <div class="column">Media with specified hashtag not found</div>
                     </div>
@@ -20,26 +20,28 @@
                         <p class="hashtag-subtitle">Top Posts</p>
                         <div class="columns is-multiline" v-if="data.hashtag">
                             <div class="column is-4" v-bind:key="item.id" v-for="item in data.hashtag.top_posts">
+                                <router-link :to="{ name: 'post', params: { shortcode: item.shortcode }}">
                                 <figure class="image media-item">
                                     <img class="media-item__image" :src="item.thumbnail_url" alt="">
                                     <div class="media-item__detail">
-                                        <vue-fontawesome icon="heart"></vue-fontawesome>
                                         <p>{{item.liked_count}}</p>
                                     </div>
                                 </figure>
+                                </router-link>
                             </div>
                         </div>
                         <hr>
                         <p class="hashtag-subtitle">Recent Post</p>
                         <div class="columns is-multiline" v-if="data.hashtag">
                             <div class="column is-4" v-bind:key="item.id" v-for="item in data.hashtag.media_posts">
+                                <router-link :to="{ name: 'post', params: { shortcode: item.shortcode }}">
                                 <figure class="image media-item">
                                     <img class="media-item__image" :src="item.thumbnail_url" alt="">
                                     <div class="media-item__detail">
-                                        <vue-fontawesome icon="heart"></vue-fontawesome>
                                         <p>{{item.liked_count}}</p>
                                     </div>
                                 </figure>
+                                </router-link>
                             </div>
                         </div>
                     </div>
@@ -95,7 +97,7 @@ export default {
                 people: false,
                 location: false,
                 prop: {
-                    isFullPage: false
+                    isFullPage: true
                 }
             },
             tabProperty: {
@@ -139,14 +141,22 @@ export default {
         }
     },
     created() {
-        this.search_keyword = this.rand_default_keyword[Math.floor(Math.random()*this.rand_default_keyword.length)];
+        if(this.$route.query.keyword && this.$route.query.keyword != ''){
+           this.search_keyword = this.$route.query.keyword 
+        }else{
+            this.search_keyword = this.rand_default_keyword[Math.floor(Math.random()*this.rand_default_keyword.length)];
+        }
         this.searchByHashtag()
         this.searchGeneral()
     },
     watch: {
         '$route' () {
             this.data.hashtag = []
-            this.search_keyword = this.$route.query.keyword
+            if(this.$route.query.keyword && this.$route.query.keyword != ''){
+                this.search_keyword = this.$route.query.keyword 
+            }else{
+                this.search_keyword = this.rand_default_keyword[Math.floor(Math.random()*this.rand_default_keyword.length)];
+            }
             this.searchByHashtag()
             this.searchGeneral()
         }

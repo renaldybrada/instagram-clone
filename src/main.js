@@ -23,7 +23,7 @@ const routes = [
   { path: '/', component: Home },
   { path: '/search', component: Home},
   { path: '/user', component: User },
-  { path: '/post', component: Post }
+  { path: '/post/:shortcode', name: 'post', component: Post }
 ]
 
 

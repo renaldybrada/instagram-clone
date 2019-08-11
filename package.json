@@ -16,10 +16,12 @@
     "buefy": "^0.8.2",
     "core-js": "^2.6.5",
     "express": "^4.17.1",
+    "moment": "^2.24.0",
     "npm": "^6.10.3",
     "run": "^1.4.0",
     "serve": "^11.1.0",
     "vue": "^2.6.10",
+    "vue-moment": "^4.0.0",
     "vue-router": "^3.1.2"
   },
   "devDependencies": {
