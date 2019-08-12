@@ -25,7 +25,16 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+a {
+  color: black !important;
+
+  &:hover{
+    cursor: pointer;
+    color: turquoise;
+  }
+}
+
 .main-content{
   margin-top: 2rem;
 }

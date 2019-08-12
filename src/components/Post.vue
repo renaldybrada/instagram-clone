@@ -1,22 +1,27 @@
 <template>
     <div class="post-page">
-        <div class="columns">
-            <div class="column is-4">
+        <b-loading :active.sync="loading.isLoading" :is-full-page="loading.isFullPage"></b-loading>
+        <div class="columns is-marginless">
+            <div class="column is-3">
                 <div class="post-media post-media__owner">
                     <div class="media">
                         <div class="media-left">
-                            <figure class="image is-64x64">
-                            <img class="is-rounded" :src="data.owner.profile_pic_url" alt="">
-                            </figure>
+                            <router-link :to="{ name: 'user', params: { username: data.owner.username }}">
+                                <figure class="image is-32x32">
+                                    <img class="is-rounded" :src="data.owner.profile_pic_url" alt="">
+                                </figure>
+                            </router-link>
                         </div>
                         <div class="media-content">
-                            <p class="is-size-6">
-                                <strong>{{data.owner.username}}</strong>
-                                <span class="is-size-6" v-if="data.location !== null">
-                                    <br>
-                                    at <strong>{{data.location.name}}</strong>
-                                </span>
-                            </p>
+                            <router-link :to="{ name: 'user', params: { username: data.owner.username }}">
+                                <p class="is-size-6">
+                                    <strong>{{data.owner.username}}</strong>
+                                    <span class="is-size-6" v-if="data.location !== null">
+                                        <br>
+                                        at <strong>{{data.location.name}}</strong>
+                                    </span>
+                                </p>
+                            </router-link>
                             <p class="is-size-6" v-if="data.caption !== null">
                                 {{data.caption}}
                             </p>
@@ -41,25 +46,31 @@
                     </figure>
                 </div>
             </div>
-            <div class="column is-3">
-                <div class="post-media post-media__comments">
-                    <div class="media" v-bind:key="comment.id" v-for="comment in data.comments">
-                        <div class="media-left">
-                            <figure class="image is-32x32">
-                                <img class="is-rounded" :src="comment.owner.profile_pic_url" alt="">
-                            </figure>
-                        </div>
-                        <div class="media-content">
-                            <p class="is-size-6">
-                                <strong>{{comment.owner.username}}</strong>
-                            </p>
-                            <p class="is-size-6">
-                                {{comment.text}}
-                                <br>
-                                <span class="is-pulled-right">
-                                    {{data.created_at | dateFromNow}}
-                                </span>
-                            </p>
+            <div class="column is-4">
+                <div class="container">
+                    <div class="post-media post-media__comments">
+                        <div class="media post-media__comment" v-bind:key="comment.id" v-for="comment in data.comments">
+                            <div class="media-left">
+                                <router-link :to="{ name: 'user', params: { username: comment.owner.username }}">
+                                    <figure class="image is-32x32">
+                                        <img class="is-rounded" :src="comment.owner.profile_pic_url" alt="">
+                                    </figure>
+                                </router-link>
+                            </div>
+                            <div class="media-content">
+                                <router-link :to="{ name: 'user', params: { username: comment.owner.username }}">
+                                    <p class="is-size-6">
+                                        <strong>{{comment.owner.username}}</strong>
+                                    </p>
+                                </router-link>
+                                <p class="is-size-6">
+                                    {{comment.text}}
+                                    <br>
+                                    <span class="is-pulled-right">
+                                        {{data.created_at | dateFromNow}}
+                                    </span>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -84,22 +95,26 @@ export default {
     data(){
         return{
             data: null,
-            imageIsExpanded: false
+            imageIsExpanded: false,
+            loading: {
+                isLoading: false,
+                isFullPage: true
+            }
         }
     },
     methods: {
         getMediaByShortcode(){
-            // this.isLoading.hashtag = true
+            this.loading.isLoading = true
 
             const uri = 'media/'+ this.$route.params.shortcode
             this.$http.get(uri, {
                 params: {formated:true}
             }).then((response) => {
                 this.data = response.data
-                // this.isLoading.hashtag = false
+                this.loading.isLoading = false
             }).catch((e) => {
                 this.error.message = e
-                // this.isLoading.hashtag = false
+                this.loading.isLoading = false
             })
         },
         expandImage(){
@@ -111,7 +126,8 @@ export default {
         }
     },
     created() {
-        this.getMediaByShortcode();
+        this.loading.isLoading = true
+        this.getMediaByShortcode()
     },
     filters: {
         dateFromNow: function(value) {
@@ -134,6 +150,10 @@ export default {
 
     &__comments{
         height: 80vh;
+    }
+
+    &__comment{
+        padding: 0 1rem 0 0;
     }
 }
 

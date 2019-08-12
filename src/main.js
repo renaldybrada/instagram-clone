@@ -22,7 +22,7 @@ Vue.use(VueRouter)
 const routes = [
   { path: '/', component: Home },
   { path: '/search', component: Home},
-  { path: '/user', component: User },
+  { path: '/user/:username', name: 'user', component: User },
   { path: '/post/:shortcode', name: 'post', component: Post }
 ]
 

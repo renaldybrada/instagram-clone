@@ -49,19 +49,21 @@
                 <b-tab-item class="main-container" label="People">
                     <b-loading :active.sync="isLoading.people" :is-full-page="isLoading.prop.isFullPage"></b-loading>
                     <div class="card" v-bind:key="people.user.pk" v-for="people in data.people">
-                        <div class="card-content">
-                            <div class="media">
-                                <div class="media-left">
-                                    <figure class="image is-64x64">
-                                    <img class="is-rounded" :src="people.user.profile_pic_url" alt="">
-                                    </figure>
-                                </div>
-                                <div class="media-content">
-                                    <p class="title is-4">{{people.user.full_name}} <span class="subtitle is-6">@{{people.user.username}}</span></p>
-                                    <p class="subtitle is-6">{{people.user.byline}}</p>
+                        <router-link :to="{ name: 'user', params: { username: people.user.username }}">
+                            <div class="card-content">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <figure class="image is-64x64">
+                                        <img class="is-rounded" :src="people.user.profile_pic_url" alt="">
+                                        </figure>
+                                    </div>
+                                    <div class="media-content">
+                                        <p class="title is-4">{{people.user.full_name}} <span class="subtitle is-6">@{{people.user.username}}</span></p>
+                                        <p class="subtitle is-6">{{people.user.byline}}</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </router-link>
                     </div>
                 </b-tab-item>
                 <b-tab-item class="main-container" label="Location">
@@ -80,9 +82,9 @@ export default {
             activeTab: 0,
             search_keyword : '',
             rand_default_keyword: [
-                'natgeo', 'nationalgeographic', '9gag', 'indonesia', 'ethnic', 'flower', 'adventure',
-                'malang', 'bandung', 'liverpool', 'arema', 'technology', 'instagram', 'nature', 'food',
-                'lapar', 'mukbang'
+                'natgeo', 'nationalgeographic', 'indonesia', 'ethnic', 'flower', 'adventure',
+                'malang', 'bandung', 'instagram', 'nature', 'food', 'africa', 'santorini', 'italy',
+                'forest', 'lake', 'beach'
             ],
             data: {
                 hashtag   : null,
