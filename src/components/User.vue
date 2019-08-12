@@ -9,7 +9,7 @@
                     <div class="biography__bio">
                         <p class="is-size-4 biography__username"><strong>{{data.username}}</strong></p>
                         <ul class="biography__statistics">
-                            <li><p class="is-size-6"><strong>xx</strong> Post</p></li>
+                            <li><p class="is-size-6"><strong>{{data.posts_count}}</strong> Posts</p></li>
                             <li><p class="is-size-6"><strong>{{data.followers_count}}</strong> Followers</p></li>
                             <li><p class="is-size-6"><strong>{{data.following_count}}</strong> Following</p></li>    
                         </ul>
@@ -88,6 +88,31 @@ export default {
                     margin-right: 2rem;
                 }
             }
+        }
+
+       @media only screen and (max-width: 600px) {
+            &__profpic{
+                margin-left: 50%;
+                transform: translateX(-50%);
+            }
+
+            &__bio{
+                position: relative;
+                width: 100%;
+                margin: 0;
+                text-align: center;
+            }
+
+            &__statistics{
+                & li{
+                display: inline-block;
+
+                &:not(last-child){
+                    margin-right: .5rem;
+                }
+            }
+            }
+
         }
     }
 
