@@ -79,7 +79,10 @@
         <div class="modal" v-bind:class="{ 'is-active': imageIsExpanded }">
             <div class="modal-background" v-on:click="expandImage"></div>
             <div class="modal-content">
-                <p class="image">
+                <video ref="video" :src="data.video_url" controls v-if="data.is_video">
+                    Your browser does not support the video tag.
+                </video>
+                <p class="image" v-else>
                     <img class="expanded-image" :src="data.display_url" alt="">
                 </p>
             </div>
@@ -120,8 +123,16 @@ export default {
         expandImage(){
             if(this.imageIsExpanded){
                 this.imageIsExpanded = false
+                if(this.data.is_video){
+                    const vid = this.$refs.video
+                    vid.pause()
+                }
             }else{
                 this.imageIsExpanded = true
+                if(this.data.is_video){
+                    const vid = this.$refs.video
+                    vid.play()
+                }
             }
         }
     },

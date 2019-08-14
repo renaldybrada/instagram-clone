@@ -26,6 +26,7 @@
                                     <div class="media-item__detail">
                                         <p>{{item.liked_count}}</p>
                                     </div>
+                                    <i class="media-item__videoIcon large material-icons" v-if="item.is_video">videocam</i>
                                 </figure>
                                 </router-link>
                             </div>
@@ -40,6 +41,7 @@
                                     <div class="media-item__detail">
                                         <p>{{item.liked_count}}</p>
                                     </div>
+                                    <i class="media-item__videoIcon large material-icons" v-if="item.is_video">videocam</i>
                                 </figure>
                                 </router-link>
                             </div>
@@ -225,6 +227,14 @@ export default {
         transition: all .2s;
     }
     
+    &__videoIcon{
+        position: absolute;
+        top: .5rem;
+        right: 1rem;
+        color:white;
+        font-size: 2rem;
+    }
+
     &__detail{
         height: 100px;
         width: 100px;

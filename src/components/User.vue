@@ -22,7 +22,10 @@
                 <div class="user-gallery">
                     <div class="user-gallery__media" v-bind:key="media.id" v-for="media in data.timeline_media">
                         <router-link :to="{ name: 'post', params: { shortcode: media.shortcode }}">
-                            <img class="user-gallery__thumbnail" :src="media.thumbnail_url" alt="">
+                            <div class="user-gallery__wrapper">
+                                <img class="user-gallery__thumbnail" :src="media.thumbnail_url" alt="">
+                                <i class="user-gallery__videoIcon large material-icons" v-if="media.is_video">videocam</i>
+                            </div>
                         </router-link>
                     </div>
                 </div>
@@ -56,10 +59,33 @@ export default {
                 this.error.message = e
                 this.loading.isLoading = false
             })
+        },
+        loadNextPage(){
+            window.onscroll = () => {
+                let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
+
+                if (bottomOfWindow) {
+                    // this.loading.isLoading = true
+                    // const uri = 'username/'+ this.$route.params.username
+                    // this.$http.get(uri, {
+                    //     params: {
+                    //         formated: true,
+                    //         next_url: this.data.next_url
+                    //     }
+                    // }).then((response) => {
+                    //     this.data = response.data
+                    // }).catch((e) => {
+                    //     this.error.message = e
+                    // })
+                }
+            };
         }
     },
     created(){
         this.getUserPage()
+    },
+    mounted(){
+        this.loadNextPage()
     },
     filters: {
         toKilo: function(value) {
@@ -119,10 +145,10 @@ export default {
                 & li{
                 display: inline-block;
 
-                &:not(last-child){
-                    margin-right: .5rem;
+                    &:not(last-child){
+                        margin-right: .5rem;
+                    }
                 }
-            }
             }
 
         }
@@ -135,6 +161,18 @@ export default {
         
         &__media {
             width: 10.5rem;
+        }
+
+        &__wrapper{
+            position: relative;
+        }
+
+        &__videoIcon{
+            position: absolute;
+            top: .2rem;
+            right: .5rem;
+            color:white;
+            font-size: 1.5rem;
         }
     }
 </style>
