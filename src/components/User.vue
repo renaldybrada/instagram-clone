@@ -9,9 +9,9 @@
                     <div class="biography__bio">
                         <p class="is-size-4 biography__username"><strong>{{data.username}}</strong></p>
                         <ul class="biography__statistics">
-                            <li><p class="is-size-6"><strong>{{data.posts_count}}</strong> Posts</p></li>
-                            <li><p class="is-size-6"><strong>{{data.followers_count}}</strong> Followers</p></li>
-                            <li><p class="is-size-6"><strong>{{data.following_count}}</strong> Following</p></li>    
+                            <li><p class="is-size-6"><strong>{{data.posts_count | toKilo}}</strong> Posts</p></li>
+                            <li><p class="is-size-6"><strong>{{data.followers_count | toKilo}}</strong> Followers</p></li>
+                            <li><p class="is-size-6"><strong>{{data.following_count | toKilo}}</strong> Following</p></li>    
                         </ul>
                         <p class="is-size-6">{{data.full_name}}</p>
                         <p class="is-size-6">{{data.biography}}</p>
@@ -60,6 +60,16 @@ export default {
     },
     created(){
         this.getUserPage()
+    },
+    filters: {
+        toKilo: function(value) {
+            let divided = value/1000;
+            if(divided > 1){
+                return Math.floor(divided)+"K"
+            }else{
+                return value
+            }
+        }
     }
 }
 </script>
@@ -67,6 +77,8 @@ export default {
 <style scoped lang="scss">
     .biography{
         position: relative;
+        padding: 1rem;
+
         &__profpic{
             display: inline-block;
         }
@@ -122,7 +134,7 @@ export default {
         justify-content: space-evenly;
         
         &__media {
-            width: 11rem;
+            width: 10.5rem;
         }
     }
 </style>

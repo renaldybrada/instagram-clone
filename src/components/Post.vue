@@ -155,6 +155,16 @@ export default {
     &__comment{
         padding: 0 1rem 0 0;
     }
+
+    @media only screen and (max-width: 600px) {
+        &__owner{
+            height: auto;
+        }
+
+        &__comments{
+            height: auto;
+        }
+    }
 }
 
 .main-media{

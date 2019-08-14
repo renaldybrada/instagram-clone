@@ -175,6 +175,12 @@ export default {
         font-weight: 500;
         font-size: 3rem;
     }
+
+    @media only screen and (max-width: 600px) {
+        &__title{
+            font-size: 2rem;
+        }
+    }
 }
 
 .main-container{
@@ -185,7 +191,13 @@ export default {
     text-align: center;
     font-weight: 600;
     font-size: 2.5rem;
-    margin-top: 1rem;
+    margin: 1rem 0 1rem 0;
+
+    @media only screen and (max-width: 600px) {
+        &{
+            font-size: 1.5rem;
+        }
+    }
 }
 
 .search-result{
