@@ -25,7 +25,7 @@ export default {
   },
   mounted(){
     const accessTime = moment().hour()
-    if (accessTime > 11){
+    if (accessTime > 18){
       this.isDarkMode = true
     }
   }
