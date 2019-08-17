@@ -1,5 +1,6 @@
 <template>
     <div class="user-page">
+        <b-loading :active.sync="loading.isLoading" :is-full-page="loading.isFullPage"></b-loading>
         <div class="columns">
             <div class="column">
                 <div class="biography">
@@ -38,7 +39,7 @@
 export default {
     data(){
         return{
-            data: null,
+            data: {},
             loading: {
                 isLoading: false,
                 isFullPage: true

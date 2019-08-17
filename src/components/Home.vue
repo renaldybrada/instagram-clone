@@ -89,7 +89,9 @@ export default {
                 'forest', 'lake', 'beach'
             ],
             data: {
-                hashtag   : null,
+                hashtag   : {
+                    status: ""
+                },
                 people    : null,
                 location  : null
             },

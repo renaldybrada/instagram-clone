@@ -97,7 +97,13 @@ import moment from 'moment'
 export default {
     data(){
         return{
-            data: null,
+            data: {
+                owner: {
+                    username: "instagram"
+                },
+                comments: {},
+                location: {}
+            },
             imageIsExpanded: false,
             loading: {
                 isLoading: false,
