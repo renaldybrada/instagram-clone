@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" v-bind:class="{'dark-mode':isDarkMode}">
     <Navigation></Navigation>
 
     <div class="container">
@@ -12,6 +12,7 @@
 
 <script>
 import Navigation from './layouts/Navigation'
+import moment from 'moment'
 
 export default {
   components : {
@@ -19,20 +20,74 @@ export default {
   },
   data(){
     return {
-
+      isDarkMode : false
+    }
+  },
+  mounted(){
+    const accessTime = moment().hour()
+    if (accessTime > 18){
+      this.isDarkMode = true
     }
   }
 }
 </script>
 
 <style lang="scss">
+//===== Dark Mode Style =====//
+.dark-mode{
+  $background-dark: #333;
+  $font-color-dark: #eee;
+
+  background-color: $background-dark;
+  color: $font-color-dark;
+  
+  & > a {
+    color: $font-color-dark !important;
+  }
+
+  & strong {
+    color: $font-color-dark;
+  }
+
+  & .navbar{
+    background-color: $background-dark;
+
+    & .navbar-menu{
+      background-color: $background-dark;
+    }
+
+    & .title {
+      color: $font-color-dark;
+    }
+  }
+
+  & .card {
+    background-color: $background-dark;
+  }
+
+  & .card{
+    & .title{
+      color: $font-color-dark;
+    }
+    
+    & .subtitle{
+      color: $font-color-dark;
+    }
+  }
+}
+//===== End Dark Mode Style =====//
+
 a {
-  color: black !important;
+  color: inherit !important;
 
   &:hover{
     cursor: pointer;
     color: turquoise;
   }
+}
+
+.wrapped-text{
+  word-wrap: break-word;
 }
 
 .main-content{

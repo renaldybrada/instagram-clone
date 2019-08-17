@@ -69,7 +69,7 @@
                     </div>
                 </b-tab-item>
                 <b-tab-item class="main-container" label="Location">
-                    This is location
+                    Coming soon
                 </b-tab-item>
             </b-tabs>
         </div>
@@ -89,7 +89,9 @@ export default {
                 'forest', 'lake', 'beach'
             ],
             data: {
-                hashtag   : null,
+                hashtag   : {
+                    status: ""
+                },
                 people    : null,
                 location  : null
             },
@@ -187,6 +189,7 @@ export default {
 
 .main-container{
     margin-top: 1.5rem;
+    min-height: 72vh;
 }
 
 .hashtag-subtitle{

@@ -22,7 +22,7 @@
                 </div>
                 <div class="navbar-item"></div>
                 <div class="navbar-item">
-                    Fork on Github
+                    <i class="large material-icons">device_hub</i>
                 </div>
             </template>
         </b-navbar>
