@@ -1,7 +1,7 @@
 <template>
     <div class="post-page">
         <b-loading :active.sync="loading.isLoading" :is-full-page="loading.isFullPage"></b-loading>
-        <div class="columns is-marginless">
+        <div class="columns is-marginless" v-if="hasLoaded">
             <div class="column is-3">
                 <div class="post-media post-media__owner">
                     <div class="media">
@@ -22,7 +22,7 @@
                                     </span>
                                 </p>
                             </router-link>
-                            <p class="is-size-6" v-if="data.caption !== null">
+                            <p class="is-size-6 wrapped-text" v-if="data.caption !== null">
                                 {{data.caption}}
                             </p>
                         </div>
@@ -63,7 +63,7 @@
                                         <strong>{{comment.owner.username}}</strong>
                                     </p>
                                 </router-link>
-                                <p class="is-size-6">
+                                <p class="is-size-6 wrapped-text">
                                     {{comment.text}}
                                     <br>
                                     <span class="is-pulled-right">
@@ -108,7 +108,8 @@ export default {
             loading: {
                 isLoading: false,
                 isFullPage: true
-            }
+            },
+            hasLoaded: false
         }
     },
     methods: {
@@ -120,6 +121,7 @@ export default {
                 params: {formated:true}
             }).then((response) => {
                 this.data = response.data
+                this.hasLoaded = true;
                 this.loading.isLoading = false
             }).catch((e) => {
                 this.error.message = e
@@ -157,6 +159,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.post-page{
+    min-height: 90vh;
+}
+
 .post-media{
     overflow-y: auto;
     overflow-x: hidden;

@@ -189,6 +189,7 @@ export default {
 
 .main-container{
     margin-top: 1.5rem;
+    min-height: 72vh;
 }
 
 .hashtag-subtitle{

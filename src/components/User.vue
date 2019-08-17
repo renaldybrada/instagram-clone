@@ -1,7 +1,7 @@
 <template>
     <div class="user-page">
         <b-loading :active.sync="loading.isLoading" :is-full-page="loading.isFullPage"></b-loading>
-        <div class="columns">
+        <div class="columns" v-if="hasLoaded">
             <div class="column">
                 <div class="biography">
                     <figure class="image is-128x128 biography__profpic">
@@ -43,7 +43,8 @@ export default {
             loading: {
                 isLoading: false,
                 isFullPage: true
-            }
+            },
+            hasLoaded: false
         }
     },
     methods: {
@@ -55,6 +56,7 @@ export default {
                 params: {formated:true}
             }).then((response) => {
                 this.data = response.data
+                this.hasLoaded = true
                 this.loading.isLoading = false
             }).catch((e) => {
                 this.error.message = e
@@ -102,6 +104,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+    .user-page{
+        min-height: 90vh;
+    }
+    
     .biography{
         position: relative;
         padding: 1rem;
