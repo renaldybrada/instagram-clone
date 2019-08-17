@@ -26,8 +26,50 @@ export default {
 </script>
 
 <style lang="scss">
+.dark-mode{
+  $background-dark: #333;
+  $font-color-dark: #eee;
+
+  background-color: $background-dark;
+  color: $font-color-dark;
+  
+  & > a {
+    color: $font-color-dark !important;
+  }
+
+  & strong {
+    color: $font-color-dark;
+  }
+  
+  & .navbar{
+    background-color: $background-dark;
+
+    & .navbar-menu{
+      background-color: $background-dark;
+    }
+
+    & .title {
+      color: $font-color-dark;
+    }
+  }
+
+  & .card {
+    background-color: $background-dark;
+  }
+
+  & .card{
+    & .title{
+      color: $font-color-dark;
+    }
+    
+    & .subtitle{
+      color: $font-color-dark;
+    }
+  }
+}
+
 a {
-  color: black !important;
+  color: inherit !important;
 
   &:hover{
     cursor: pointer;

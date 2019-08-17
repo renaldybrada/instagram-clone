@@ -69,7 +69,7 @@
                     </div>
                 </b-tab-item>
                 <b-tab-item class="main-container" label="Location">
-                    This is location
+                    Coming soon
                 </b-tab-item>
             </b-tabs>
         </div>
