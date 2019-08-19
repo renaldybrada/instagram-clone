@@ -24,6 +24,7 @@
                                 <figure class="image media-item">
                                     <img class="media-item__image" :src="item.thumbnail_url" alt="">
                                     <div class="media-item__detail">
+                                        <i class="large material-icons">favorite</i>
                                         <p>{{item.liked_count}}</p>
                                     </div>
                                     <i class="media-item__videoIcon large material-icons" v-if="item.is_video">videocam</i>
@@ -39,6 +40,7 @@
                                 <figure class="image media-item">
                                     <img class="media-item__image" :src="item.thumbnail_url" alt="">
                                     <div class="media-item__detail">
+                                        <i class="large material-icons">favorite</i>
                                         <p>{{item.liked_count}}</p>
                                     </div>
                                     <i class="media-item__videoIcon large material-icons" v-if="item.is_video">videocam</i>
@@ -217,16 +219,17 @@ export default {
     position: relative;
 
     &:hover &__image{
-        transform: translate(-.3rem) scale(1.05);
+        transform: scale(1.05);
         filter: grayscale(90%) blur(.1rem);
     }
 
     &:hover &__detail{
+        transform: scale(1);
         opacity: 1;
     }
 
     &__image{
-        border-radius: 5%;
+        border-radius: 5px;
         transition: all .2s;
     }
     
@@ -249,10 +252,19 @@ export default {
 
         text-align: center;
         color: $red;
-        font-size: 2rem;
+        transform: scale(.1);
         opacity: 0;
 
         transition: all .2s;
+
+        & * {
+            font-size: 2rem;
+        }
+
+        & i {
+            margin-top: .5rem;
+            font-size: 2.5rem;
+        }
     }
 }
 </style>
