@@ -86,7 +86,7 @@ export default {
             activeTab: 0,
             search_keyword : '',
             rand_default_keyword: [
-                'natgeo', 'nationalgeographic', 'indonesia', 'ethnic', 'flower', 'adventure',
+                'natgeo', 'nationalgeographic', 'indonesia', 'adventure', "wild", "instagood",
                 'malang', 'bandung', 'instagram', 'nature', 'food', 'africa', 'santorini', 'italy',
                 'forest', 'lake', 'beach'
             ],

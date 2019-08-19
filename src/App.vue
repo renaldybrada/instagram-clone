@@ -41,11 +41,11 @@ export default {
   background-color: $background-dark;
   color: $font-color-dark;
   
-  & > a {
+  & a {
     color: $font-color-dark !important;
   }
 
-  & strong {
+  & strong,p {
     color: $font-color-dark;
   }
 
