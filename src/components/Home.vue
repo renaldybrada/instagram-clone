@@ -111,6 +111,9 @@ export default {
             tabProperty: {
                 expanded: true,
                 animated: false,
+            },
+            pagination: {
+                allowedToNext: true
             }
         };
     },
@@ -146,6 +149,35 @@ export default {
                 this.isLoading.hashtag = false
                 this.isLoading.location = false
             })
+        },
+        loadNextHashtag(){
+            window.onscroll = () => {
+                let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
+
+                if (bottomOfWindow && this.pagination.allowedToNext) {
+                    this.pagination.allowedToNext = false
+
+                    const uri = 'tags/'+ this.search_keyword
+                    this.$http.get(uri, {
+                        params: {
+                            formated: true,
+                            next_url: this.data.hashtag.next_url
+                        }
+                    }).then((response) => {
+                        this.data.hashtag.next_url = response.data.next_url
+                        
+                        let loadedMedia = response.data.media_posts
+                        loadedMedia.map(media => {
+                            this.data.hashtag.media_posts.push(media)    
+                        })
+
+                        this.pagination.allowedToNext = true
+                    }).catch((e) => {
+                        this.error.message = e
+                        this.pagination.allowedToNext = true
+                    })
+                }
+            };
         }
     },
     created() {
@@ -156,6 +188,9 @@ export default {
         }
         this.searchByHashtag()
         this.searchGeneral()
+    },
+    mounted(){
+        this.loadNextHashtag();
     },
     watch: {
         '$route' () {
