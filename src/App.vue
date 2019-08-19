@@ -45,7 +45,7 @@ export default {
     color: $font-color-dark !important;
   }
 
-  & strong,p {
+  & strong {
     color: $font-color-dark;
   }
 
@@ -61,16 +61,9 @@ export default {
     }
   }
 
-  & .card {
-    background-color: $background-dark;
-  }
-
   & .card{
-    & .title{
-      color: $font-color-dark;
-    }
-    
-    & .subtitle{
+    background-color: $background-dark;
+    & .title,.subtitle{
       color: $font-color-dark;
     }
   }
