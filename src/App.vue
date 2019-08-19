@@ -36,7 +36,7 @@ export default {
 //===== Dark Mode Style =====//
 .dark-mode{
   $background-dark: #333;
-  $font-color-dark: #eee;
+  $font-color-dark: #5DBCD2;
 
   background-color: $background-dark;
   color: $font-color-dark;
