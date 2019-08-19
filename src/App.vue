@@ -36,16 +36,16 @@ export default {
 //===== Dark Mode Style =====//
 .dark-mode{
   $background-dark: #333;
-  $font-color-dark: #eee;
+  $font-color-dark: #5DBCD2;
 
   background-color: $background-dark;
   color: $font-color-dark;
   
-  & > a {
+  & a {
     color: $font-color-dark !important;
   }
 
-  & strong {
+  & strong,p {
     color: $font-color-dark;
   }
 

@@ -24,6 +24,7 @@
                                 <figure class="image media-item">
                                     <img class="media-item__image" :src="item.thumbnail_url" alt="">
                                     <div class="media-item__detail">
+                                        <i class="large material-icons">favorite</i>
                                         <p>{{item.liked_count}}</p>
                                     </div>
                                     <i class="media-item__videoIcon large material-icons" v-if="item.is_video">videocam</i>
@@ -39,6 +40,7 @@
                                 <figure class="image media-item">
                                     <img class="media-item__image" :src="item.thumbnail_url" alt="">
                                     <div class="media-item__detail">
+                                        <i class="large material-icons">favorite</i>
                                         <p>{{item.liked_count}}</p>
                                     </div>
                                     <i class="media-item__videoIcon large material-icons" v-if="item.is_video">videocam</i>
@@ -84,7 +86,7 @@ export default {
             activeTab: 0,
             search_keyword : '',
             rand_default_keyword: [
-                'natgeo', 'nationalgeographic', 'indonesia', 'ethnic', 'flower', 'adventure',
+                'natgeo', 'nationalgeographic', 'indonesia', 'adventure', "wild", "instagood",
                 'malang', 'bandung', 'instagram', 'nature', 'food', 'africa', 'santorini', 'italy',
                 'forest', 'lake', 'beach'
             ],
@@ -109,6 +111,9 @@ export default {
             tabProperty: {
                 expanded: true,
                 animated: false,
+            },
+            pagination: {
+                allowedToNext: true
             }
         };
     },
@@ -144,6 +149,35 @@ export default {
                 this.isLoading.hashtag = false
                 this.isLoading.location = false
             })
+        },
+        loadNextHashtag(){
+            window.onscroll = () => {
+                let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
+
+                if (bottomOfWindow && this.pagination.allowedToNext) {
+                    this.pagination.allowedToNext = false
+
+                    const uri = 'tags/'+ this.search_keyword
+                    this.$http.get(uri, {
+                        params: {
+                            formated: true,
+                            next_url: this.data.hashtag.next_url
+                        }
+                    }).then((response) => {
+                        this.data.hashtag.next_url = response.data.next_url
+                        
+                        let loadedMedia = response.data.media_posts
+                        loadedMedia.map(media => {
+                            this.data.hashtag.media_posts.push(media)    
+                        })
+
+                        this.pagination.allowedToNext = true
+                    }).catch((e) => {
+                        this.error.message = e
+                        this.pagination.allowedToNext = true
+                    })
+                }
+            };
         }
     },
     created() {
@@ -154,6 +188,9 @@ export default {
         }
         this.searchByHashtag()
         this.searchGeneral()
+    },
+    mounted(){
+        this.loadNextHashtag();
     },
     watch: {
         '$route' () {
@@ -217,16 +254,17 @@ export default {
     position: relative;
 
     &:hover &__image{
-        transform: translate(-.3rem) scale(1.05);
+        transform: scale(1.05);
         filter: grayscale(90%) blur(.1rem);
     }
 
     &:hover &__detail{
+        transform: scale(1);
         opacity: 1;
     }
 
     &__image{
-        border-radius: 5%;
+        border-radius: 5px;
         transition: all .2s;
     }
     
@@ -249,10 +287,19 @@ export default {
 
         text-align: center;
         color: $red;
-        font-size: 2rem;
+        transform: scale(.1);
         opacity: 0;
 
         transition: all .2s;
+
+        & * {
+            font-size: 2rem;
+        }
+
+        & i {
+            margin-top: .5rem;
+            font-size: 2.5rem;
+        }
     }
 }
 </style>

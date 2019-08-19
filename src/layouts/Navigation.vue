@@ -22,7 +22,7 @@
                 </div>
                 <div class="navbar-item"></div>
                 <div class="navbar-item">
-                    <i class="large material-icons">device_hub</i>
+                    <a href="https://github.com/renaldybrada/instagram-clone">Fork Me!</a>
                 </div>
             </template>
         </b-navbar>
